@@ -1,4 +1,4 @@
-RemoveBOM v1.0.0
+RemoveBOM v2.0.0
 ================
 
 This program remove BOM header from UTF-8 files. Just drag and drop file(s) or directory to list and all files are checked and when
@@ -13,3 +13,4 @@ Please report all bugs ang suggestions to info@forrest79.net.
 History:
 ========
 1.0.0 [2008-11-21] - First public version
+2.0.0 [2009-10-08] - Add option for list only BOM files and for testing files for having BOM
