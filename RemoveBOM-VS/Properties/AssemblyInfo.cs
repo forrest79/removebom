@@ -1,16 +1,17 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("RemoveBOM")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Remove BOM header from UTF-8 files.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Forrest79.net")]
 [assembly: AssemblyProduct("RemoveBOM")]
-[assembly: AssemblyCopyright("Copyright © Forrest79.net 2008")]
+[assembly: AssemblyCopyright("Copyright © Forrest79.net 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +33,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.0.0.0")]
-[assembly: AssemblyFileVersion("2.0.0.0")]
+[assembly: AssemblyVersion("3.0.0.0")]
+[assembly: AssemblyFileVersion("3.0.0.0")]
+[assembly: NeutralResourcesLanguageAttribute("en")]
