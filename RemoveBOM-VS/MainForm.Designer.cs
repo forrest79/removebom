@@ -30,22 +30,23 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.chkBackup = new System.Windows.Forms.CheckBox();
-            this.lblHelp = new System.Windows.Forms.Label();
-            this.listFiles = new System.Windows.Forms.ListBox();
-            this.rbRemove = new System.Windows.Forms.RadioButton();
-            this.rbTest = new System.Windows.Forms.RadioButton();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.rbBOM = new System.Windows.Forms.RadioButton();
-            this.rbAll = new System.Windows.Forms.RadioButton();
+            this.lblInfo = new System.Windows.Forms.Label();
+            this.rbRemoveBOM = new System.Windows.Forms.RadioButton();
+            this.rbTestBOM = new System.Windows.Forms.RadioButton();
+            this.panelList = new System.Windows.Forms.Panel();
+            this.rbListBOMFiles = new System.Windows.Forms.RadioButton();
+            this.rbListAllFiles = new System.Windows.Forms.RadioButton();
             this.btnClearList = new System.Windows.Forms.Button();
-            this.lblBOMFilesText = new System.Windows.Forms.Label();
             this.lblBOMFiles = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lblBOMFilesCount = new System.Windows.Forms.Label();
+            this.lblExtension = new System.Windows.Forms.Label();
+            this.txtExtension = new System.Windows.Forms.TextBox();
             this.chkAlwayOnTop = new System.Windows.Forms.CheckBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.pbWorking = new System.Windows.Forms.PictureBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.rtbFiles = new System.Windows.Forms.RichTextBox();
+            this.panelList.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbWorking)).BeginInit();
             this.SuspendLayout();
             // 
             // chkBackup
@@ -58,92 +59,78 @@
             this.chkBackup.Location = new System.Drawing.Point(125, 307);
             this.chkBackup.Name = "chkBackup";
             this.chkBackup.Size = new System.Drawing.Size(92, 17);
-            this.chkBackup.TabIndex = 0;
-            this.chkBackup.Text = "Make &backup";
+            this.chkBackup.TabIndex = 5;
+            this.chkBackup.Text = "&Make backup";
             this.chkBackup.UseVisualStyleBackColor = true;
             // 
-            // lblHelp
+            // lblInfo
             // 
-            this.lblHelp.AutoSize = true;
-            this.lblHelp.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblHelp.Location = new System.Drawing.Point(12, 9);
-            this.lblHelp.Name = "lblHelp";
-            this.lblHelp.Size = new System.Drawing.Size(451, 13);
-            this.lblHelp.TabIndex = 1;
-            this.lblHelp.Text = "Drag files or directories to the list to remove/test BOM header from UTF-8 files";
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblInfo.Location = new System.Drawing.Point(12, 9);
+            this.lblInfo.Name = "lblInfo";
+            this.lblInfo.Size = new System.Drawing.Size(451, 13);
+            this.lblInfo.TabIndex = 11;
+            this.lblInfo.Text = "Drag files or directories to the list to remove/test BOM header from UTF-8 files";
             // 
-            // listFiles
+            // rbRemoveBOM
             // 
-            this.listFiles.AllowDrop = true;
-            this.listFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.listFiles.BackColor = System.Drawing.Color.White;
-            this.listFiles.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.listFiles.FormattingEnabled = true;
-            this.listFiles.Location = new System.Drawing.Point(15, 29);
-            this.listFiles.Name = "listFiles";
-            this.listFiles.Size = new System.Drawing.Size(557, 225);
-            this.listFiles.TabIndex = 3;
-            this.listFiles.DragDrop += new System.Windows.Forms.DragEventHandler(this.listFiles_DragDrop);
-            this.listFiles.DragEnter += new System.Windows.Forms.DragEventHandler(this.listFiles_DragEnter);
+            this.rbRemoveBOM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.rbRemoveBOM.AutoSize = true;
+            this.rbRemoveBOM.Checked = true;
+            this.rbRemoveBOM.Location = new System.Drawing.Point(15, 307);
+            this.rbRemoveBOM.Name = "rbRemoveBOM";
+            this.rbRemoveBOM.Size = new System.Drawing.Size(92, 17);
+            this.rbRemoveBOM.TabIndex = 4;
+            this.rbRemoveBOM.TabStop = true;
+            this.rbRemoveBOM.Text = "&Remove BOM";
+            this.rbRemoveBOM.UseVisualStyleBackColor = true;
             // 
-            // rbRemove
+            // rbTestBOM
             // 
-            this.rbRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.rbRemove.AutoSize = true;
-            this.rbRemove.Checked = true;
-            this.rbRemove.Location = new System.Drawing.Point(15, 307);
-            this.rbRemove.Name = "rbRemove";
-            this.rbRemove.Size = new System.Drawing.Size(92, 17);
-            this.rbRemove.TabIndex = 5;
-            this.rbRemove.TabStop = true;
-            this.rbRemove.Text = "&Remove BOM";
-            this.rbRemove.UseVisualStyleBackColor = true;
+            this.rbTestBOM.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.rbTestBOM.AutoSize = true;
+            this.rbTestBOM.Location = new System.Drawing.Point(15, 330);
+            this.rbTestBOM.Name = "rbTestBOM";
+            this.rbTestBOM.Size = new System.Drawing.Size(73, 17);
+            this.rbTestBOM.TabIndex = 6;
+            this.rbTestBOM.TabStop = true;
+            this.rbTestBOM.Text = "&Test BOM";
+            this.rbTestBOM.UseVisualStyleBackColor = true;
             // 
-            // rbTest
+            // panelList
             // 
-            this.rbTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.rbTest.AutoSize = true;
-            this.rbTest.Location = new System.Drawing.Point(15, 330);
-            this.rbTest.Name = "rbTest";
-            this.rbTest.Size = new System.Drawing.Size(73, 17);
-            this.rbTest.TabIndex = 6;
-            this.rbTest.Text = "&Test BOM";
-            this.rbTest.UseVisualStyleBackColor = true;
+            this.panelList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelList.Controls.Add(this.rbListBOMFiles);
+            this.panelList.Controls.Add(this.rbListAllFiles);
+            this.panelList.Controls.Add(this.btnClearList);
+            this.panelList.Location = new System.Drawing.Point(346, 303);
+            this.panelList.Name = "panelList";
+            this.panelList.Size = new System.Drawing.Size(226, 59);
+            this.panelList.TabIndex = 11;
             // 
-            // panel1
+            // rbListBOMFiles
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.rbBOM);
-            this.panel1.Controls.Add(this.rbAll);
-            this.panel1.Controls.Add(this.btnClearList);
-            this.panel1.Location = new System.Drawing.Point(346, 303);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(226, 59);
-            this.panel1.TabIndex = 7;
+            this.rbListBOMFiles.AutoSize = true;
+            this.rbListBOMFiles.Checked = true;
+            this.rbListBOMFiles.Location = new System.Drawing.Point(3, 9);
+            this.rbListBOMFiles.Name = "rbListBOMFiles";
+            this.rbListBOMFiles.Size = new System.Drawing.Size(111, 17);
+            this.rbListBOMFiles.TabIndex = 7;
+            this.rbListBOMFiles.TabStop = true;
+            this.rbListBOMFiles.Text = "List &BOM files only";
+            this.rbListBOMFiles.UseVisualStyleBackColor = true;
             // 
-            // rbBOM
+            // rbListAllFiles
             // 
-            this.rbBOM.AutoSize = true;
-            this.rbBOM.Checked = true;
-            this.rbBOM.Location = new System.Drawing.Point(3, 9);
-            this.rbBOM.Name = "rbBOM";
-            this.rbBOM.Size = new System.Drawing.Size(111, 17);
-            this.rbBOM.TabIndex = 7;
-            this.rbBOM.TabStop = true;
-            this.rbBOM.Text = "List &BOM files only";
-            this.rbBOM.UseVisualStyleBackColor = true;
-            // 
-            // rbAll
-            // 
-            this.rbAll.AutoSize = true;
-            this.rbAll.Location = new System.Drawing.Point(3, 32);
-            this.rbAll.Name = "rbAll";
-            this.rbAll.Size = new System.Drawing.Size(75, 17);
-            this.rbAll.TabIndex = 6;
-            this.rbAll.Text = "List &all files";
-            this.rbAll.UseVisualStyleBackColor = true;
+            this.rbListAllFiles.AutoSize = true;
+            this.rbListAllFiles.Location = new System.Drawing.Point(3, 32);
+            this.rbListAllFiles.Name = "rbListAllFiles";
+            this.rbListAllFiles.Size = new System.Drawing.Size(75, 17);
+            this.rbListAllFiles.TabIndex = 8;
+            this.rbListAllFiles.TabStop = true;
+            this.rbListAllFiles.Text = "List &all files";
+            this.rbListAllFiles.UseVisualStyleBackColor = true;
             // 
             // btnClearList
             // 
@@ -151,48 +138,50 @@
             this.btnClearList.Location = new System.Drawing.Point(130, 3);
             this.btnClearList.Name = "btnClearList";
             this.btnClearList.Size = new System.Drawing.Size(93, 53);
-            this.btnClearList.TabIndex = 5;
-            this.btnClearList.Text = "&Clear list";
+            this.btnClearList.TabIndex = 9;
+            this.btnClearList.Text = "Clear &list";
             this.btnClearList.UseVisualStyleBackColor = true;
             this.btnClearList.Click += new System.EventHandler(this.btnClearList_Click);
-            // 
-            // lblBOMFilesText
-            // 
-            this.lblBOMFilesText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblBOMFilesText.AutoSize = true;
-            this.lblBOMFilesText.Location = new System.Drawing.Point(346, 287);
-            this.lblBOMFilesText.Name = "lblBOMFilesText";
-            this.lblBOMFilesText.Size = new System.Drawing.Size(55, 13);
-            this.lblBOMFilesText.TabIndex = 8;
-            this.lblBOMFilesText.Text = "BOM files:";
             // 
             // lblBOMFiles
             // 
             this.lblBOMFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblBOMFiles.AutoSize = true;
-            this.lblBOMFiles.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblBOMFiles.Location = new System.Drawing.Point(407, 287);
+            this.lblBOMFiles.Location = new System.Drawing.Point(346, 287);
             this.lblBOMFiles.Name = "lblBOMFiles";
-            this.lblBOMFiles.Size = new System.Drawing.Size(14, 13);
-            this.lblBOMFiles.TabIndex = 9;
-            this.lblBOMFiles.Text = "0";
-            this.lblBOMFiles.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.lblBOMFiles.Size = new System.Drawing.Size(55, 13);
+            this.lblBOMFiles.TabIndex = 10;
+            this.lblBOMFiles.Text = "BOM files:";
             // 
-            // label1
+            // lblBOMFilesCount
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 276);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 13);
-            this.label1.TabIndex = 10;
-            this.label1.Text = "Extension:";
+            this.lblBOMFilesCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblBOMFilesCount.AutoSize = true;
+            this.lblBOMFilesCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblBOMFilesCount.Location = new System.Drawing.Point(407, 287);
+            this.lblBOMFilesCount.Name = "lblBOMFilesCount";
+            this.lblBOMFilesCount.Size = new System.Drawing.Size(14, 13);
+            this.lblBOMFilesCount.TabIndex = 9;
+            this.lblBOMFilesCount.Text = "0";
+            this.lblBOMFilesCount.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // textBox1
+            // lblExtension
             // 
-            this.textBox1.Location = new System.Drawing.Point(78, 273);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(78, 20);
-            this.textBox1.TabIndex = 11;
+            this.lblExtension.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblExtension.AutoSize = true;
+            this.lblExtension.Location = new System.Drawing.Point(16, 276);
+            this.lblExtension.Name = "lblExtension";
+            this.lblExtension.Size = new System.Drawing.Size(56, 13);
+            this.lblExtension.TabIndex = 10;
+            this.lblExtension.Text = "Extension:";
+            // 
+            // txtExtension
+            // 
+            this.txtExtension.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtExtension.Location = new System.Drawing.Point(78, 273);
+            this.txtExtension.Name = "txtExtension";
+            this.txtExtension.Size = new System.Drawing.Size(54, 20);
+            this.txtExtension.TabIndex = 3;
             // 
             // chkAlwayOnTop
             // 
@@ -200,36 +189,62 @@
             this.chkAlwayOnTop.Location = new System.Drawing.Point(480, 8);
             this.chkAlwayOnTop.Name = "chkAlwayOnTop";
             this.chkAlwayOnTop.Size = new System.Drawing.Size(92, 17);
-            this.chkAlwayOnTop.TabIndex = 12;
+            this.chkAlwayOnTop.TabIndex = 0;
             this.chkAlwayOnTop.Text = "Always &on top";
             this.chkAlwayOnTop.UseVisualStyleBackColor = true;
             this.chkAlwayOnTop.CheckedChanged += new System.EventHandler(this.chkAlwayOnTop_CheckedChanged);
             // 
-            // pictureBox1
+            // pbWorking
             // 
-            this.pictureBox1.Image = global::RemoveBOM.Properties.Resources.Loading;
-            this.pictureBox1.Location = new System.Drawing.Point(489, 260);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(20, 18);
-            this.pictureBox1.TabIndex = 13;
-            this.pictureBox1.TabStop = false;
+            this.pbWorking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbWorking.Image = global::RemoveBOM.Properties.Resources.Loading;
+            this.pbWorking.Location = new System.Drawing.Point(484, 263);
+            this.pbWorking.Name = "pbWorking";
+            this.pbWorking.Size = new System.Drawing.Size(20, 18);
+            this.pbWorking.TabIndex = 13;
+            this.pbWorking.TabStop = false;
+            this.pbWorking.Visible = false;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCancel.Location = new System.Drawing.Point(507, 260);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(62, 24);
+            this.btnCancel.TabIndex = 2;
+            this.btnCancel.Text = "&Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Visible = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // rtbFiles
+            // 
+            this.rtbFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbFiles.Location = new System.Drawing.Point(17, 29);
+            this.rtbFiles.Name = "rtbFiles";
+            this.rtbFiles.Size = new System.Drawing.Size(555, 231);
+            this.rtbFiles.TabIndex = 1;
+            this.rtbFiles.Text = "";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 366);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.rtbFiles);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.pbWorking);
             this.Controls.Add(this.chkAlwayOnTop);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtExtension);
+            this.Controls.Add(this.lblExtension);
+            this.Controls.Add(this.lblBOMFilesCount);
             this.Controls.Add(this.lblBOMFiles);
-            this.Controls.Add(this.lblBOMFilesText);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.rbTest);
-            this.Controls.Add(this.rbRemove);
-            this.Controls.Add(this.listFiles);
-            this.Controls.Add(this.lblHelp);
+            this.Controls.Add(this.panelList);
+            this.Controls.Add(this.rbTestBOM);
+            this.Controls.Add(this.rbRemoveBOM);
+            this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.chkBackup);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -239,9 +254,9 @@
             this.Text = "RemoveBOM";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelList.ResumeLayout(false);
+            this.panelList.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbWorking)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -250,20 +265,21 @@
         #endregion
 
         private System.Windows.Forms.CheckBox chkBackup;
-        private System.Windows.Forms.Label lblHelp;
-        private System.Windows.Forms.ListBox listFiles;
-        private System.Windows.Forms.RadioButton rbRemove;
-        private System.Windows.Forms.RadioButton rbTest;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblInfo;
+        private System.Windows.Forms.RadioButton rbRemoveBOM;
+        private System.Windows.Forms.RadioButton rbTestBOM;
+        private System.Windows.Forms.Panel panelList;
         private System.Windows.Forms.Button btnClearList;
-        private System.Windows.Forms.RadioButton rbBOM;
-        private System.Windows.Forms.RadioButton rbAll;
-        private System.Windows.Forms.Label lblBOMFilesText;
+        private System.Windows.Forms.RadioButton rbListBOMFiles;
+        private System.Windows.Forms.RadioButton rbListAllFiles;
         private System.Windows.Forms.Label lblBOMFiles;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label lblBOMFilesCount;
+        private System.Windows.Forms.Label lblExtension;
+        private System.Windows.Forms.TextBox txtExtension;
         private System.Windows.Forms.CheckBox chkAlwayOnTop;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbWorking;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.RichTextBox rtbFiles;
     }
 }
 

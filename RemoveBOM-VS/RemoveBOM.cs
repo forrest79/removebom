@@ -7,10 +7,25 @@ namespace RemoveBOM
 {
     class RemoveBOM
     {
+        public const string EXTENSION_ALL = "*";
+
+        private MainForm form;
+
         private string[] paths;
+
+        private string extension;
+
+        private bool test;
+
+        private bool backup;
+
+        private volatile bool cancel;
 
         public RemoveBOM(MainForm form)
         {
+            this.form = form;
+            this.test = false;
+            this.backup = false;
         }
 
         public void SetPaths(string[] paths)
@@ -20,33 +35,50 @@ namespace RemoveBOM
 
         public void SetExtension(string extension)
         {
+            if (!extension.StartsWith("."))
+            {
+                extension = "." + extension;
+            }
+
+            this.extension = extension;
         }
 
         public void SetTest()
         {
+            this.test = true;
         }
 
         public void SetRemove()
         {
+            this.test = false;
         }
 
-        public void SetMakeBackup()
+        public void SetMakeBackup(bool makeBackup)
         {
+            this.backup = makeBackup;
         }
 
         public void Execute()
         {
+            form.Running();
+
+            cancel = false;
+
             foreach (string path in paths)
             {
-                applyTo(path);
+                checkPath(path);
             }
+
+            form.Stop();
         }
 
         public void Cancel()
         {
+            // TODO cancel
+            cancel = true;
         }
 
-        private void applyTo(string file)
+        private void checkPath(string file)
         {
             if (Directory.Exists(file))
             {
@@ -54,106 +86,94 @@ namespace RemoveBOM
             }
             else if (File.Exists(file))
             {
-                if (processBOMFromFile(file))
+                Console.WriteLine(Path.GetExtension(file));
+                if (extension.Equals(EXTENSION_ALL) || extension.ToLower().Equals(Path.GetExtension(file).ToLower()))
                 {
-                    //this.listFiles.Items.Add(file + " [" + (this.rbRemove.Checked ? "REMOVE" : "INCLUDES") + " BOM]");
+                    if (removeBOM(file))
+                    {
+                        form.AddFile(file + " [" + (test ? "INCLUDES" : "REMOVE") + " BOM]", true);
+                    }
+                    else
+                    {
+                        form.AddFile(file + " [NO BOM]", false);
+                    }
                 }
-                //else if (this.rbAll.Checked)
-                //{
-                    //this.listFiles.Items.Add(file + " [NO BOM]");
-                //}
             }
             else
             {
-                //if (this.rbAll.Checked)
-                //{
-                //    this.listFiles.Items.Add(file + " [ERROR]");
-                //}
+                form.AddError(file + " [ERROR]");
             }
         }
 
         private void readDirectory(string dirPath)
         {
-            //if (this.rbAll.Checked)
-            //{
-            //    this.listFiles.Items.Add(dirPath + " [DIR]");
-            //}
+            form.AddDirectory(dirPath + " [DIR]");
 
             string[] files = Directory.GetFiles(dirPath);
 
             foreach (string file in files)
             {
-                applyTo(file);
+                checkPath(file);
             }
 
             string[] dirs = Directory.GetDirectories(dirPath);
 
             foreach (string dir in dirs)
             {
-                applyTo(dir);
+                checkPath(dir);
             }
         }
 
-        private bool processBOMFromFile(string file)
+        private bool removeBOM(string file)
         {
-            FileStream read = File.OpenRead(file);
+            bool foundBOM = false;
 
-            byte[] bufferBOM = new byte[3];
+            byte[] headerBOM = new byte[3];
 
-            bool bom = false;
+            FileStream fileReader = File.OpenRead(file);
 
-            int bomCount = read.Read(bufferBOM, 0, bufferBOM.Length);
+            int bomCount = fileReader.Read(headerBOM, 0, headerBOM.Length);
 
-            if (bomCount == 3)
+            if ((bomCount == 3) && (headerBOM[0] == 239) && (headerBOM[1] == 187) && (headerBOM[2] == 191))
             {
-                if ((bufferBOM[0] == 239) && (bufferBOM[1] == 187) && (bufferBOM[2] == 191))
+                foundBOM = true;
+
+                if (!test)
                 {
-                    //this.countBOM++;
+                    byte[] buffer = new byte[1024];
 
-                    //if (this.rbRemove.Checked)
-                    //{
-                        byte[] buffer = new byte[1024];
+                    FileStream write = File.OpenWrite(file + ".utf8");
 
-                        FileStream write = File.OpenWrite(file + ".utf8");
+                    int readCount = fileReader.Read(buffer, 0, buffer.Length); ;
 
-                        int readCount = read.Read(buffer, 0, buffer.Length); ;
-
-                        while (readCount > 0)
-                        {
-                            write.Write(buffer, 0, readCount);
-                            readCount = read.Read(buffer, 0, buffer.Length);
-                        }
-
-                        write.Close();
-
-                        read.Close();
-
-                        //if (this.chkBackup.Checked)
-                        //{
-                        //    System.IO.File.Move(file, file + ".bak");
-                        //}
-                        //else
-                        //{
-                        //    System.IO.File.Delete(file);
-                        //}
-
-                        System.IO.File.Move(file + ".utf8", file);
+                    while (readCount > 0)
+                    {
+                        write.Write(buffer, 0, readCount);
+                        readCount = fileReader.Read(buffer, 0, buffer.Length);
                     }
 
-                    bom = true;
-                }
-                else
-                {
-                    read.Close();
-                }
-            //}
-            //else
-            //{
-                read.Close();
-            //}
+                    write.Close();
 
-            return bom;
+                    fileReader.Close();
+
+                    if (backup)
+                    {
+                        // TODO check backup
+                        System.IO.File.Move(file, file + ".bak");
+                    }
+                    else
+                    {
+                        System.IO.File.Delete(file);
+                    }
+
+                    // TODO better rename solution
+                    System.IO.File.Move(file + ".utf8", file);
+                }
+            }
+
+            fileReader.Close();
+
+            return foundBOM;
         }
-
     }
 }
