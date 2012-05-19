@@ -253,7 +253,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RemoveBOM";
             this.TopMost = true;
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.panelList.ResumeLayout(false);
             this.panelList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWorking)).EndInit();

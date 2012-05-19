@@ -1,24 +1,52 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.Threading;
 using System.Drawing;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace RemoveBOM
 {
+    /// <summary>
+    /// RemoveBOM main form.
+    /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// RemoveBOM class.
+        /// </summary>
         private RemoveBOM removeBOM;
         
+        /// <summary>
+        /// RemoveBOM worker thread.
+        /// </summary>
         private Thread removeThread;
 
+        /// <summary>
+        /// Delegate callback for calling from another thread to set controls properties.
+        /// </summary>
         public delegate void SetCallback();
 
+        /// <summary>
+        /// Delegate callback for calling from another thread to append text.
+        /// </summary>
+        /// <param name="text">Text.</param>
+        /// <param name="color">Text color.</param>
         public delegate void AppendTextCallback(string text, Color color);
 
+        /// <summary>
+        /// Delegate callback for calling from another thread to add file.
+        /// </summary>
+        /// <param name="text">Text.</param>
+        /// <param name="hasBOM">Has file BOM header.</param>
         public delegate void AddFileCallback(string text, bool hasBOM);
 
+        /// <summary>
+        /// Count BOM files.
+        /// </summary>
         private int countBOMFiles;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -30,6 +58,11 @@ namespace RemoveBOM
             txtExtension.Text = RemoveBOM.EXTENSION_ALL;
         }
 
+        /// <summary>
+        /// Drag files enter.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rtbFiles_DragEnter(object sender, DragEventArgs e)
         {
             if (removeBOM == null)
@@ -41,6 +74,11 @@ namespace RemoveBOM
             }
         }
 
+        /// <summary>
+        /// Drag files drop.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void rtbFiles_DragDrop(object sender, DragEventArgs e)
         {
             if (removeBOM == null)
@@ -65,15 +103,28 @@ namespace RemoveBOM
             }
         }
 
-
+        /// <summary>
+        /// Cancel thread button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             if (removeBOM != null)
             {
                 removeBOM.Cancel();
+                removeThread.Join();
+                
+                Stop();
+                removeThread = null;
             }
         }
 
+        /// <summary>
+        /// Clear list button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnClearList_Click(object sender, EventArgs e)
         {
             rtbFiles.Text = "";
@@ -81,16 +132,57 @@ namespace RemoveBOM
             countBOMFiles = 0;
         }
 
+        /// <summary>
+        /// Always on top checkbox.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chkAlwayOnTop_CheckedChanged(object sender, EventArgs e)
         {
             TopMost = chkAlwayOnTop.Checked;
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Set checkbox start state.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnLoad(EventArgs e)
         {
+            base.OnLoad(e);
+
             chkAlwayOnTop.Checked = TopMost;
         }
 
+        /// <summary>
+        /// Form closing.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+
+            if (removeBOM != null)
+            {
+                if (MessageBox.Show("Removing is in progress. Cancel it?", "Cancel removing?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    if (removeBOM != null)
+                    {
+                        removeBOM.Cancel();
+                        removeThread.Join();
+                    }
+                }
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Add file to list.
+        /// </summary>
+        /// <param name="text">Text.</param>
+        /// <param name="hasBOM">Has BOM header.</param>
         public void AddFile(string text, bool hasBOM)
         {
             if (lblBOMFilesCount.InvokeRequired)
@@ -113,6 +205,10 @@ namespace RemoveBOM
             }
         }
 
+        /// <summary>
+        /// Add directory to list.
+        /// </summary>
+        /// <param name="text">Text.</param>
         public void AddDirectory(string text)
         {
             if (rbListAllFiles.Checked)
@@ -121,11 +217,18 @@ namespace RemoveBOM
             }
         }
 
+        /// <summary>
+        /// Add error to list.
+        /// </summary>
+        /// <param name="text">Text.</param>
         public void AddError(string text)
         {
             AppendText(text, Color.Red);
         }
 
+        /// <summary>
+        /// Set removing is running.
+        /// </summary>
         public void Running()
         {
             if (pbWorking.InvokeRequired)
@@ -148,6 +251,9 @@ namespace RemoveBOM
             }
         }
 
+        /// <summary>
+        /// Set removing is stopped.
+        /// </summary>
         public void Stop()
         {
             if (pbWorking.InvokeRequired)
@@ -172,6 +278,11 @@ namespace RemoveBOM
             }
         }
 
+        /// <summary>
+        /// Append text to list.
+        /// </summary>
+        /// <param name="text">Text.</param>
+        /// <param name="color">Text color.</param>
         private void AppendText(string text, Color color)
         {
             if (rtbFiles.InvokeRequired)
@@ -188,6 +299,9 @@ namespace RemoveBOM
                 rtbFiles.AppendText(text);
                 rtbFiles.SelectionColor = rtbFiles.ForeColor;
                 rtbFiles.AppendText(Environment.NewLine);
+
+                rtbFiles.SelectionStart = rtbFiles.Text.Length;
+                rtbFiles.ScrollToCaret();
             }
         }
     }
