@@ -185,7 +185,7 @@ namespace RemoveBOM
                 {
                     if (removeBOM(path))
                     {
-                        form.AddFile(path + " [" + (test ? "INCLUDES" : "REMOVE") + " BOM]", true);
+                        form.AddFile(path + " [" + (test ? "INCLUDE" : "REMOVED") + " BOM]", true);
                     }
                     else
                     {
@@ -203,7 +203,7 @@ namespace RemoveBOM
         /// Remove BOM from file.
         /// </summary>
         /// <param name="file">File to remove BOM.</param>
-        /// <returns>Success.</returns>
+        /// <returns>File has BOM header (Yes=true, No=false).</returns>
         private bool removeBOM(string file)
         {
             bool foundBOM = false;
@@ -228,13 +228,12 @@ namespace RemoveBOM
                         string fileRemovedBOM = findFreeFilename(file, "removedbom");
                         fileWriter = File.OpenWrite(fileRemovedBOM);
 
-                        int readCount = fileReader.Read(buffer, 0, buffer.Length); ;
-
-                        while (readCount > 0)
+                        int readCount = 0;
+                        do
                         {
-                            fileWriter.Write(buffer, 0, readCount);
                             readCount = fileReader.Read(buffer, 0, buffer.Length);
-                        }
+                            fileWriter.Write(buffer, 0, readCount);
+                        } while (readCount > 0);
 
                         fileWriter.Close();
                         fileWriter = null;

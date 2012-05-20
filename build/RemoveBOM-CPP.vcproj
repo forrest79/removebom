@@ -18,10 +18,11 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\bin\"
+			IntermediateDirectory="..\bin\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
+			BuildLogFile="..\bin\BuildLog.htm"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -45,7 +46,10 @@
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
+				ObjectFile="..\bin\"
+				ProgramDataBaseFileName="..\bin\rmbom.pdb"
+				XMLDocumentationFileName="..\bin\"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -60,9 +64,13 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				OutputFile="..\bin\rmbom-debug.exe"
 				LinkIncremental="2"
+				ManifestFile="..\bin\$(TargetFileName).intermediate.manifest"
 				GenerateDebugInformation="true"
+				ProgramDatabaseFile="..\bin\$(TargetName).pdb"
 				SubSystem="1"
+				ProfileGuidedDatabase=""
 				TargetMachine="1"
 			/>
 			<Tool
@@ -70,12 +78,17 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
+				OutputManifestFile="..\bin\$(TargetFileName).embed.manifest"
+				ManifestResourceFile="..\bin\$(TargetFileName).embed.manifest.res"
+				DependencyInformationFile="..\bin\mt.dep"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
+				OutputDocumentFile="..\bin\$(TargetName).xml"
 			/>
 			<Tool
 				Name="VCBscMakeTool"
+				OutputFile="..\bin\$(ProjectName).bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -89,11 +102,12 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="..\bin\"
+			IntermediateDirectory="..\bin\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
+			BuildLogFile="..\bin\BuildLog.htm"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -117,7 +131,10 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
+				ObjectFile="..\bin\"
+				ProgramDataBaseFileName="..\bin\rmbom.pdb"
+				XMLDocumentationFileName="..\bin\"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -132,11 +149,15 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				OutputFile="..\bin\rmbom.exe"
 				LinkIncremental="1"
+				ManifestFile="..\bin\$(TargetFileName).intermediate.manifest"
 				GenerateDebugInformation="true"
+				ProgramDatabaseFile="..\bin\$(TargetName).pdb"
 				SubSystem="1"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				ProfileGuidedDatabase=""
 				TargetMachine="1"
 			/>
 			<Tool
@@ -144,12 +165,17 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
+				OutputManifestFile="..\bin\$(TargetFileName).embed.manifest"
+				ManifestResourceFile="..\bin\$(TargetFileName).embed.manifest.res"
+				DependencyInformationFile="..\bin\mt.dep"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
+				OutputDocumentFile="..\bin\$(TargetName).xml"
 			/>
 			<Tool
 				Name="VCBscMakeTool"
+				OutputFile="..\bin\$(ProjectName).bsc"
 			/>
 			<Tool
 				Name="VCFxCopTool"
@@ -180,6 +206,10 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath="..\RemoveBOM-CPP\removebom.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
