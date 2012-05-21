@@ -224,9 +224,9 @@ void printHelp(char *executable)
 
 	printf("RemoveBOM v%s - remove BOM header from file\n", VERSION);
 	printf("usage: %s [--test|-t] [--backup|-b] [--all|-a] [--extension|-e <extension>] <path>\n\n", extension.c_str());
-	printf("  <path>                   path to file or dir to process\n");
+	printf("  <path>                   path to file or directory to process\n");
 	printf("  --test                   test only for BOM header\n");
 	printf("  --backup                 backup file before remove BOM header\n");
 	printf("  --all                    list all files (defaul is only files with BOM header)\n");
-	printf("  --extension <extension>  process only files with <extension> (default is `*` = all files)\n");
+	printf("  --extension <extension>  process only files with <extension> (default all files)\n");
 }
