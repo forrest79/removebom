@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 {
 	// Initialize
 	path.assign("");
-	extension.assign("*");
+	extension.assign("");
 	test = false;
 	backup = false;
 	listAll = false;
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 	}
 
 	// Add . prefix to extension...
-	if (extension.at(0) != '.') {
+	if (!extension.empty() && (extension.at(0) != '.')) {
 		extension.assign(string(".") . append(extension));
 	}
 
@@ -201,7 +201,8 @@ string findFreeFilename(const char *file, const char *extension)
 			stringstream strI;
 			strI << i;
 			backupFile.assign(file).append(".").append(strI.str()).append(".").append(extension);
-			testFile.open(backupFile.c_str());
+			testFile.close();
+			testFile.open(backupFile.c_str(), ifstream::in);
             i++;
 		} while (testFile.good());
 	}

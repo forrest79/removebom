@@ -99,6 +99,7 @@ namespace RemoveBOM
                 }
 
                 removeThread = new Thread(removeBOM.Execute);
+                removeThread.IsBackground = true;
                 removeThread.Start();
             }
         }
@@ -113,9 +114,6 @@ namespace RemoveBOM
             if (removeBOM != null)
             {
                 removeBOM.Cancel();
-                removeThread.Join();
-                
-                Stop();
                 removeThread = null;
             }
         }
@@ -168,7 +166,6 @@ namespace RemoveBOM
                     if (removeBOM != null)
                     {
                         removeBOM.Cancel();
-                        removeThread.Join();
                     }
                 }
                 else
@@ -187,8 +184,12 @@ namespace RemoveBOM
         {
             if (lblBOMFilesCount.InvokeRequired)
             {
-                AddFileCallback callback = new AddFileCallback(AddFile);
-                this.Invoke(callback, new Object[] { text, hasBOM });
+                try
+                {
+                    AddFileCallback callback = new AddFileCallback(AddFile);
+                    Invoke(callback, new Object[] { text, hasBOM });
+                }
+                catch { }
             }
             else
             {
@@ -233,8 +234,12 @@ namespace RemoveBOM
         {
             if (pbWorking.InvokeRequired)
             {
-                SetCallback callback = new SetCallback(Running);
-                this.Invoke(callback);
+                try
+                {
+                    SetCallback callback = new SetCallback(Running);
+                    Invoke(callback);
+                }
+                catch { }
             }
             else
             {
@@ -258,8 +263,12 @@ namespace RemoveBOM
         {
             if (pbWorking.InvokeRequired)
             {
-                SetCallback callback = new SetCallback(Stop);
-                this.Invoke(callback);
+                try
+                {
+                    SetCallback callback = new SetCallback(Stop);
+                    Invoke(callback);
+                }
+                catch { }
             }
             else
             {
@@ -287,8 +296,12 @@ namespace RemoveBOM
         {
             if (rtbFiles.InvokeRequired)
             {
-                AppendTextCallback callback = new AppendTextCallback(AppendText);
-                this.Invoke(callback, new Object[] { text, color });
+                try
+                {
+                    AppendTextCallback callback = new AppendTextCallback(AppendText);
+                    Invoke(callback, new Object[] { text, color });
+                }
+                catch { }
             }
             else
             {

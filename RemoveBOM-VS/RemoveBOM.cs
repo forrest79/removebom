@@ -6,7 +6,7 @@ namespace RemoveBOM
     /// <summary>
     /// RemoveBOM class.
     /// </summary>
-    class RemoveBOM
+    public class RemoveBOM
     {
         /// <summary>
         /// Extension for all files.
@@ -125,10 +125,7 @@ namespace RemoveBOM
                 checkPath(path);
             }
 
-            if (cancel == false)
-            {
-                form.Stop();
-            }
+            form.Stop();
         }
 
         /// <summary>
@@ -155,29 +152,21 @@ namespace RemoveBOM
             {
                 form.AddDirectory(path + " [DIR]");
 
-                string[] files = Directory.GetFiles(path);
+                string[][] paths = new string[2][] { Directory.GetFiles(path), Directory.GetDirectories(path) };
 
-                foreach (string file in files)
+                foreach (string[] files in paths)
                 {
-                    if (cancel)
+                    foreach (string file in files)
                     {
-                        return;
-                    }
+                        if (cancel)
+                        {
+                            return;
+                        }
 
-                    checkPath(file);
+                        checkPath(file);
+                    }
                 }
 
-                string[] dirs = Directory.GetDirectories(path);
-
-                foreach (string dir in dirs)
-                {
-                    if (cancel)
-                    {
-                        return;
-                    }
-
-                    checkPath(dir);
-                }
             }
             else if (File.Exists(path))
             {

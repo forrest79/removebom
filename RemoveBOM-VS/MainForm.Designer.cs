@@ -198,7 +198,7 @@
             // 
             this.pbWorking.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pbWorking.Image = global::RemoveBOM.Properties.Resources.Loading;
-            this.pbWorking.Location = new System.Drawing.Point(484, 263);
+            this.pbWorking.Location = new System.Drawing.Point(484, 264);
             this.pbWorking.Name = "pbWorking";
             this.pbWorking.Size = new System.Drawing.Size(20, 18);
             this.pbWorking.TabIndex = 13;
@@ -252,7 +252,6 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RemoveBOM";
-            this.TopMost = true;
             this.panelList.ResumeLayout(false);
             this.panelList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbWorking)).EndInit();
