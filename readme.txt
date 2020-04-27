@@ -1,4 +1,7 @@
-RemoveBOM © Jakub Trmota, 2012 (http://forrest79.net)
+=== THIS REPOSITORY IS NO LONGER MAINTAINED ===
+
+
+RemoveBOM Â© Jakub Trmota, 2012 (https://forrest79.net)
 
 
 This program remove BOM header from UTF-8 files. Windows version, both GUI and command-line, Linux version with command-line version only.
@@ -35,9 +38,9 @@ Linux: Run "make" in "build" directory. Executable file (rmbom) can be found in 
 
 HISTORY
 =======
-1.0.0 [2008-11-21] - First public version.
-2.0.0 [2009-10-08] - Add option for list only BOM files and for testing files for having BOM.
 3.0.0 [2012-05-21] - File checking run in background thread and can be stopped. You can choose file extension.
+2.0.0 [2009-10-08] - Add option for list only BOM files and for testing files for having BOM.
+1.0.0 [2008-11-21] - First public version.
 
 
 REQUIREMENTS
@@ -47,7 +50,7 @@ You need .NET Framework 2 to run GUI version this application (http://www.micros
 
 LICENSE
 =======
-RemoveBOM is distributed under BSD license. See license.txt.
+RemoveBOM is distributed under New BSD license. See license.txt.
 
 
 https://github.com/forrest79/removebom
